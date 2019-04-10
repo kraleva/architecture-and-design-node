@@ -9,7 +9,15 @@
     <ul class="menu">
       <li><a href = "/">Index</a></li>
       <li><a href ="/about">About</a></li>
+      {{#if currentUser}}
+         <li>{{currentUser.username}}</li>
+      {{#else}}
+         <li><a href="/users/register">Register</a></li>
+      {{/if}}
     </ul>
+    {{#if globalError}}
+      <h3>{{globalError}}</h3>
+    {{/if}}
     {{{body}}}
   </div>
 </body>
