@@ -24,5 +24,33 @@ module.exports = {
         res.redirect('/')
       })
     })
+  },
+  loginGet: (req, res) => {
+    res.render('users/login')
+  },
+  loginPost: (req, res) => {
+    let reqUser = req.body
+    User.findOne({ username: reqUser.username }).then(user => {
+      if (!user) {
+        res.locals.globalError = 'Invalid user data'
+        res.render('users/login')
+      }
+      if (!user.authenticate(reqUser.password)) {
+        res.locals.globalError = 'Invalid user data'
+        res.render('users/login')
+      }
+
+      req.logIn(user, (err, user) => {
+        if (err) {
+          res.locals.globalError = err
+          res.render('users/login')
+        }
+        res.redirect('/')
+      })
+    })
+  },
+  logout: (req, res) => {
+    req.logout()
+    res.redirect('/')
   }
 }
