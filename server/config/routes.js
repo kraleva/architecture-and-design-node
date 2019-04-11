@@ -5,6 +5,7 @@ module.exports = (app) => {
   app.get('/', controllers.home.index)
   app.get('/about', auth.isInRole('Admin'), controllers.home.about)
   app.get('/about', controllers.home.about)
+  app.get('/cars/add', auth.isInRole('Admin'), controllers.cars.addGet)
   app.get('/users/register', controllers.users.registerGet)
   app.get('/users/login', controllers.users.loginGet)
   app.post('/users/login', controllers.users.loginPost)
