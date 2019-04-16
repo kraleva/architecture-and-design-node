@@ -1,0 +1,32 @@
+<form action="/cars/all" method="GET">
+  <input type="text" name="search"/>
+  <input type="submit" value="search">
+</form>
+
+{{#each cars}}
+  <div class="mb60 car-details">
+    <h2>{{this.make}},{{this.model}}, {{this.year}} </h2>
+    <img src = "{{this.image}}" alt="{{this.make}},{{this.model}}"/>
+    <h3>{{this.pricePerDay}} BGN /day</h3>
+    {{#if this.power}}
+      <h3>{{this.power}}</h3>
+    {{/if}}
+    {{#if ../currentUser}}
+      <form action="/cars/rent/{{this._id}}" method="POST">
+        <input type="submit" value="Rent"/>
+      </form>
+    {{/if}}
+  </div>
+{{else}}
+  <h2>No cars available!</h2>
+{{/each}}
+
+<div class="font-3x">
+  {{#if hasPrevPage}}
+    <a href="/cars/all?page={{prevPage}}&search={{search}}">&lt;&lt;</a>
+    &nbsp;&nbsp;&nbsp;
+  {{/if}}
+  {{#if hasNextPage}}
+    <a href="/cars/all?page={{nextPage}}&search={{search}}">&gt;&gt;</a>
+  {{/if}}
+</div>

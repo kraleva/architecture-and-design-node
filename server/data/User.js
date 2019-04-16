@@ -22,7 +22,7 @@ userSchema.method({
 let User = mongoose.model('User', userSchema)
 module.exports = User
 module.exports.seedAdminUser = () => {
-  User.find({}).then(users => {
+  User.find({ roles: 'Admin' }).then(users => {
     if (users.length > 0) { return }
     let salt = encryption.generateSalt()
     let hashedPass = encryption.generateHashedPassword(salt, '123456')
